@@ -9,9 +9,9 @@ public class DriverWidget extends Widget {
 	
 	public static final String CLASSNAME = DriverWidget.class.getName();
 	public static final String ID = "identifier"; //leia-se CPF
-	public static final String PERMISSION = "permission"; 
-	public static final String CREDIT_CARD = "credit_card"; 
-	public static final String CURRENT_SPOT = "current_spot"; 
+	public static final String PERMISSION = "permission";
+	public static final String CREDIT_CARD = "credit_card";
+	public static final String CURRENT_SPOT = "current_spot";
 	public static final String TYPE = "type";
 	
 	private String driverID;
