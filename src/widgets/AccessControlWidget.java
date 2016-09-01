@@ -8,8 +8,7 @@ import enums.TypeEnum;
 public class AccessControlWidget extends Widget {
 	
 	public static final String CLASSNAME = AccessControlWidget.class.getName();
-	public static final String ID = "identifier";
-	public static final String AUTENTICATION = "autentication";	
+	public static final String ID = "identifier";	
 	public static final String VACANCY = "spot available";
 	
 	private String gateID;
@@ -23,7 +22,6 @@ public class AccessControlWidget extends Widget {
 	@Override
 	protected void init() {
 		
-		addAttribute(Attribute.instance(AUTENTICATION, String.class));
 		addAttribute(Attribute.instance(VACANCY, Boolean.class));
 		
 		// constant attributes
