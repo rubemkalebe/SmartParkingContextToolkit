@@ -1,0 +1,95 @@
+package enactors;
+
+import context.arch.discoverer.ComponentDescription;
+import context.arch.discoverer.component.NonConstantAttributeElement;
+import context.arch.discoverer.query.ANDQueryItem;
+import context.arch.discoverer.query.AbstractQueryItem;
+import context.arch.discoverer.query.ElseQueryItem;
+import context.arch.discoverer.query.RuleQueryItem;
+import context.arch.discoverer.query.comparison.AttributeComparison;
+import context.arch.enactor.Enactor;
+import context.arch.enactor.EnactorReference;
+import context.arch.service.helper.ServiceInput;
+import context.arch.storage.AttributeNameValue;
+import context.arch.storage.Attributes;
+import context.arch.widget.Widget;
+import context.arch.widget.Widget.WidgetData;
+import widgets.AccessControlWidget;
+import widgets.DriverWidget;
+
+public class NewVehicleEnactor extends Enactor {
+	
+	public NewVehicleEnactor(AbstractQueryItem<?,?> inWidgetQuery, AbstractQueryItem<?,?> outWidgetQuery) {
+		this(new AbstractQueryItem<?,?>[] {inWidgetQuery}, new AbstractQueryItem<?,?>[] {outWidgetQuery});
+	}
+
+	@SuppressWarnings("serial")
+	public NewVehicleEnactor(AbstractQueryItem<?, ?>[] inWidgetQuery,
+			AbstractQueryItem<?, ?>[] outWidgetQuery) {
+		super(inWidgetQuery, outWidgetQuery, AccessControlWidget.ACCESS_STATUS, "");
+		
+		AbstractQueryItem<?, ?> accessQI = new ANDQueryItem(
+				RuleQueryItem.instance(
+						new NonConstantAttributeElement(AttributeNameValue.instance(AccessControlWidget.NEW_VEHICLE, true)),
+						new AttributeComparison(AttributeComparison.Comparison.EQUAL)
+				),
+				RuleQueryItem.instance(
+						new NonConstantAttributeElement(AttributeNameValue.instance(DriverWidget.PERMISSION, true)),
+						new AttributeComparison(AttributeComparison.Comparison.EQUAL)
+				),
+				RuleQueryItem.instance(
+						new NonConstantAttributeElement(AttributeNameValue.instance(AccessControlWidget.VACANCY, true)),
+						new AttributeComparison(AttributeComparison.Comparison.EQUAL)
+				)				
+		);
+		
+		EnactorReference er = new NewVehicleEnactorReference(
+			accessQI,
+			AccessControlWidget.ACCESS_OK
+		);
+		
+		er.addServiceInput(new ServiceInput("NewVehicleService", "NewVehicleControl",
+				new Attributes() {{
+					addAttribute(AccessControlWidget.ACCESS_STATUS, Boolean.class);
+				}}));
+		addReference(er);
+		
+		er = new NewVehicleEnactorReference(
+			new ElseQueryItem(accessQI),
+			AccessControlWidget.ACCESS_BLOCK
+		);
+		
+		er.addServiceInput(new ServiceInput("NewVehicleService", "NewVehicleControl",
+				new Attributes() {{
+					addAttribute(AccessControlWidget.ACCESS_STATUS, Boolean.class);
+				}}));
+		addReference(er);
+		
+	}
+	
+	private class NewVehicleEnactorReference extends EnactorReference {
+		
+		public NewVehicleEnactorReference(AbstractQueryItem<?,?> conditionQuery, Boolean outcomeValue) {
+			super(NewVehicleEnactor.this, conditionQuery, outcomeValue.toString());
+		}
+		
+		@Override
+		protected Attributes conditionSatisfied(ComponentDescription inWidgetState, Attributes outAtts) {
+			long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
+			WidgetData data = new WidgetData(AccessControlWidget.CLASSNAME, timestamp);
+			boolean access_status;
+			if (outcomeValue.equals(String.valueOf(AccessControlWidget.ACCESS_OK))) {
+				access_status = true;
+			} else {
+				access_status = false;
+			}
+			
+			data.setAttributeValue(AccessControlWidget.ACCESS_STATUS, access_status);
+			outAtts.putAll(data.toAttributes());
+			
+	        return outAtts;
+		}
+		
+	}
+
+}
