@@ -17,6 +17,10 @@ import context.arch.widget.Widget.WidgetData;
 import widgets.AccessControlWidget;
 import widgets.DriverWidget;
 
+/**
+ * Enactor para quando um novo veículo chegar ao estacionamento.
+ *
+ */
 public class NewVehicleEnactor extends Enactor {
 	
 	public NewVehicleEnactor(AbstractQueryItem<?,?> inWidgetQuery, AbstractQueryItem<?,?> outWidgetQuery) {
@@ -28,6 +32,7 @@ public class NewVehicleEnactor extends Enactor {
 			AbstractQueryItem<?, ?>[] outWidgetQuery) {
 		super(inWidgetQuery, outWidgetQuery, AccessControlWidget.ACCESS_STATUS, "");
 		
+		// Quando chega um novo veículo, o acesso dele é liberado se o estacionamento tiver vagas e ele tiver permissão
 		AbstractQueryItem<?, ?> accessQI = new ANDQueryItem(
 				RuleQueryItem.instance(
 						new NonConstantAttributeElement(AttributeNameValue.instance(AccessControlWidget.NEW_VEHICLE, true)),
@@ -45,7 +50,7 @@ public class NewVehicleEnactor extends Enactor {
 		
 		EnactorReference er = new NewVehicleEnactorReference(
 			accessQI,
-			AccessControlWidget.ACCESS_OK
+			AccessControlWidget.ACCESS_OK // Libera cancela
 		);
 		
 		er.addServiceInput(new ServiceInput("NewVehicleService", "NewVehicleControl",
@@ -56,7 +61,7 @@ public class NewVehicleEnactor extends Enactor {
 		
 		er = new NewVehicleEnactorReference(
 			new ElseQueryItem(accessQI),
-			AccessControlWidget.ACCESS_BLOCK
+			AccessControlWidget.ACCESS_BLOCK // Não libera
 		);
 		
 		er.addServiceInput(new ServiceInput("NewVehicleService", "NewVehicleControl",
@@ -64,6 +69,8 @@ public class NewVehicleEnactor extends Enactor {
 					addAttribute(AccessControlWidget.ACCESS_STATUS, Boolean.class);
 				}}));
 		addReference(er);
+		
+		start();
 		
 	}
 	
@@ -78,7 +85,7 @@ public class NewVehicleEnactor extends Enactor {
 			long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
 			WidgetData data = new WidgetData(AccessControlWidget.CLASSNAME, timestamp);
 			boolean access_status;
-			if (outcomeValue.equals(String.valueOf(AccessControlWidget.ACCESS_OK))) {
+			if(outcomeValue.equals(String.valueOf(AccessControlWidget.ACCESS_OK))) {
 				access_status = true;
 			} else {
 				access_status = false;
