@@ -1,18 +1,24 @@
 package services;
 
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
 import context.arch.comm.DataObject;
 import context.arch.service.Service;
 import context.arch.service.helper.FunctionDescription;
 import context.arch.service.helper.FunctionDescriptions;
 import context.arch.service.helper.ServiceInput;
 import context.arch.widget.Widget;
+import ui.Panel;
 
 public class LeavingSpotService extends Service {
 	
 	public String spot;
+	public Panel panel;
 	
 	@SuppressWarnings("serial")
-	public LeavingSpotService(final Widget widget, String spot) {
+	public LeavingSpotService(final Widget widget, String spot, Panel p ) {
 		super(widget, "LeavingSpotService", 
 				new FunctionDescriptions() {
 					{ // constructor
@@ -24,12 +30,15 @@ public class LeavingSpotService extends Service {
 					}
 				});
 		this.spot = spot;
-		// TODO Auto-generated constructor stub
+		this.panel = p;
 	}
 
 	@Override
 	public DataObject execute(ServiceInput serviceInput) {
 		// TODO Auto-generated method stub
+		spot.replace("S", "");		
+		int s = Integer.parseInt(spot);
+		panel.freeingSpot(s);
 		return null;
 	}
 
