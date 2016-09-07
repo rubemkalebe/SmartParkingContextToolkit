@@ -14,7 +14,9 @@ import context.arch.storage.AttributeNameValue;
 import context.arch.storage.Attributes;
 import context.arch.widget.Widget;
 import context.arch.widget.Widget.WidgetData;
-import widgets.SpotWidget;
+import widgets.spot.NotifyWidget;
+import widgets.spot.SensorWidget;
+import widgets.spot.SpotWidget;
 
 /**
  * Enactor para quando o motorista tirar o carro da vaga
@@ -35,7 +37,8 @@ public class LeavingSpotEnactor extends Enactor {
 		// Notifica se o carro sair da vaga
 		AbstractQueryItem<?, ?> leavingQI = new ANDQueryItem(
 			RuleQueryItem.instance(
-					new NonConstantAttributeElement(AttributeNameValue.instance(SpotWidget.SENSOR, false)),
+					new NonConstantAttributeElement(AttributeNameValue.instance(SensorWidget.SENSOR,
+							SensorWidget.FREE)),
 					new AttributeComparison(AttributeComparison.Comparison.EQUAL)
 			),
 			RuleQueryItem.instance(
@@ -46,23 +49,23 @@ public class LeavingSpotEnactor extends Enactor {
 		
 		EnactorReference er = new LeavingSpotEnactorReference(
 			leavingQI,
-			SpotWidget.NOTIFY_ON // Ativa notificação
+			NotifyWidget.NOTIFY_ON // Ativa notificação
 		);
 		
 		er.addServiceInput(new ServiceInput("LeavingSpotService", "LeavingSpotControl",
 				new Attributes() {{
-					addAttribute(SpotWidget.NOTIFY, Boolean.class);
+					addAttribute(NotifyWidget.NOTIFY, Boolean.class);
 				}}));
 		addReference(er);
 		
 		er = new LeavingSpotEnactorReference(
 			new ElseQueryItem(leavingQI),
-			SpotWidget.NOTIFY_OFF // Não tem o que notificar
+			NotifyWidget.NOTIFY_OFF // Não tem o que notificar
 		);
 		
 		er.addServiceInput(new ServiceInput("LeavingSpotService", "LeavingSpotControl",
 				new Attributes() {{
-					addAttribute(SpotWidget.NOTIFY, Boolean.class);
+					addAttribute(NotifyWidget.NOTIFY, Boolean.class);
 				}}));
 		addReference(er);
 		
@@ -78,15 +81,15 @@ public class LeavingSpotEnactor extends Enactor {
 		@Override
 		protected Attributes conditionSatisfied(ComponentDescription inWidgetState, Attributes outAtts) {
 			long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
-			WidgetData data = new WidgetData(SpotWidget.CLASSNAME, timestamp);
-			Boolean new_status;
-			if(outcomeValue.equals(String.valueOf(SpotWidget.NOTIFY_ON))) {
+			WidgetData data = new WidgetData(NotifyWidget.CLASSNAME, timestamp);
+			boolean new_status;
+			if(outcomeValue.equals(String.valueOf(NotifyWidget.NOTIFY_ON))) {
 				new_status = true;
 			} else {
 				new_status = false;
 			}
 			
-			data.setAttributeValue(SpotWidget.NOTIFY, new_status);
+			data.setAttributeValue(NotifyWidget.NOTIFY, new_status);
 			outAtts.putAll(data.toAttributes());
 			
 	        return outAtts;

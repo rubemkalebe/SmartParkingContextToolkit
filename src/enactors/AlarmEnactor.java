@@ -17,7 +17,9 @@ import context.arch.storage.Attributes;
 import context.arch.widget.Widget;
 import context.arch.widget.Widget.WidgetData;
 import enums.TypeEnum;
-import widgets.SpotWidget;
+import widgets.spot.AlarmWidget;
+import widgets.spot.SensorWidget;
+import widgets.spot.SpotWidget;
 
 /**
  * Enactor para alarme, que contrange o motorista a fazer a autenticação em vagas especiais
@@ -38,11 +40,12 @@ public class AlarmEnactor extends Enactor {
 		AbstractQueryItem<?, ?> alarmQI = new ANDQueryItem(
 			new ANDQueryItem(
 				RuleQueryItem.instance(
-					new NonConstantAttributeElement(AttributeNameValue.instance(SpotWidget.SENSOR, true)),
+					new NonConstantAttributeElement(AttributeNameValue.instance(SensorWidget.SENSOR,
+							SensorWidget.OCCUPIED)),
 					new AttributeComparison(AttributeComparison.Comparison.EQUAL)
 				),
 				RuleQueryItem.instance(
-					new ConstantAttributeElement(AttributeNameValue.instance(SpotWidget.DRIVER, "")),
+					new NonConstantAttributeElement(AttributeNameValue.instance(SpotWidget.DRIVER, "")),
 					new AttributeComparison(AttributeComparison.Comparison.EQUAL)
 				)
 			),
@@ -64,23 +67,23 @@ public class AlarmEnactor extends Enactor {
 		
 		EnactorReference er = new AlarmEnactorReference(
 			alarmQI,
-			SpotWidget.ALARM_ON
+			AlarmWidget.ALARM_ON
 		);
 		
 		er.addServiceInput(new ServiceInput("AlarmService", "AlarmControl",
 				new Attributes() {{
-					addAttribute(SpotWidget.ALARM, Boolean.class);
+					addAttribute(AlarmWidget.ALARM, Boolean.class);
 				}}));
 		addReference(er);
 		
 		er = new AlarmEnactorReference(
 			new ElseQueryItem(alarmQI),
-			SpotWidget.ALARM_OFF
+			AlarmWidget.ALARM_OFF
 		);
 		
 		er.addServiceInput(new ServiceInput("AlarmService", "AlarmControl",
 				new Attributes() {{
-					addAttribute(SpotWidget.ALARM, Boolean.class);
+					addAttribute(AlarmWidget.ALARM, Boolean.class);
 				}}));
 		addReference(er);
 		
@@ -96,15 +99,15 @@ public class AlarmEnactor extends Enactor {
 		@Override
 		protected Attributes conditionSatisfied(ComponentDescription inWidgetState, Attributes outAtts) {
 			long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
-			WidgetData data = new WidgetData(SpotWidget.CLASSNAME, timestamp);
-			Boolean new_alarm;
-			if(outcomeValue.equals(String.valueOf(SpotWidget.ALARM_ON))) {
+			WidgetData data = new WidgetData(AlarmWidget.CLASSNAME, timestamp);
+			boolean new_alarm;
+			if(outcomeValue.equals(String.valueOf(AlarmWidget.ALARM_ON))) {
 				new_alarm = true;
 			} else {
 				new_alarm = false;
 			}
 			
-			data.setAttributeValue(SpotWidget.ALARM, new_alarm);
+			data.setAttributeValue(AlarmWidget.ALARM, new_alarm);
 			outAtts.putAll(data.toAttributes());
 			
 	        return outAtts;

@@ -9,8 +9,10 @@ import context.arch.widget.Widget;
 
 public class LeavingSpotService extends Service {
 	
+	public String spot;
+	
 	@SuppressWarnings("serial")
-	public LeavingSpotService(final Widget widget) {
+	public LeavingSpotService(final Widget widget, String spot) {
 		super(widget, "LeavingSpotService", 
 				new FunctionDescriptions() {
 					{ // constructor
@@ -21,6 +23,7 @@ public class LeavingSpotService extends Service {
 								widget.getNonConstantAttributes()));
 					}
 				});
+		this.spot = spot;
 		// TODO Auto-generated constructor stub
 	}
 

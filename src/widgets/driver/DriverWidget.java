@@ -28,7 +28,11 @@ public class DriverWidget extends Widget {
 	private Boolean permission;
 	
 	// Vaga em que ele está estacionado
-	public static final String CURRENT_SPOT = "current_spot";	
+	public static final String CURRENT_SPOT = "current_spot";
+	
+	// Constantes pra permissão
+	public static final Boolean PERMISSION_YES = true;
+	public static final Boolean PERMISSION_NO = false;
 
 	public DriverWidget(String driverID, TypeEnum type, Boolean permission) {
 		super(CLASSNAME, CLASSNAME);

@@ -1,5 +1,6 @@
 package widgets.spot;
 
+import context.arch.storage.Attribute;
 import context.arch.storage.AttributeNameValue;
 import context.arch.widget.Widget;
 import enums.TypeEnum;
@@ -20,6 +21,9 @@ public class SpotWidget extends Widget {
 	// Tipo da vaga (normal, idoso, deficiente)
 	public static final String TYPE = "type";
 	private TypeEnum type;
+	
+	// Motorista
+	public static final String DRIVER = "driver";
 
 	public SpotWidget(String spot, TypeEnum type) {
 		super(CLASSNAME, CLASSNAME);
@@ -33,6 +37,9 @@ public class SpotWidget extends Widget {
 		// constant attributes
 		addAttribute(AttributeNameValue.instance(SPOT, spot), true);
 		addAttribute(AttributeNameValue.instance(TYPE, type), true);
+		
+		// non-constant attributes
+		addAttribute(Attribute.instance(DRIVER, String.class));
 	}
 	
 }

@@ -9,8 +9,10 @@ import context.arch.widget.Widget;
 
 public class AlarmService extends Service {
 	
+	public String spot;
+	
 	@SuppressWarnings("serial")
-	public AlarmService(final Widget widget) {
+	public AlarmService(final Widget widget, String spot) {
 		super(widget, "AlarmService", 
 				new FunctionDescriptions() {
 					{ // constructor
@@ -21,6 +23,7 @@ public class AlarmService extends Service {
 								widget.getNonConstantAttributes()));
 					}
 				});
+		this.spot = spot;
 		// TODO Auto-generated constructor stub
 	}
 

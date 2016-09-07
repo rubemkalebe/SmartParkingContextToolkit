@@ -1,6 +1,7 @@
 package enactors;
 
 import context.arch.discoverer.ComponentDescription;
+import context.arch.discoverer.component.ConstantAttributeElement;
 import context.arch.discoverer.component.NonConstantAttributeElement;
 import context.arch.discoverer.query.ANDQueryItem;
 import context.arch.discoverer.query.AbstractQueryItem;
@@ -14,8 +15,10 @@ import context.arch.storage.AttributeNameValue;
 import context.arch.storage.Attributes;
 import context.arch.widget.Widget;
 import context.arch.widget.Widget.WidgetData;
-import widgets.AccessControlWidget;
-import widgets.DriverWidget;
+import widgets.driver.DriverWidget;
+import widgets.parking.AccessControlWidget;
+import widgets.parking.NewVehicleWidget;
+import widgets.parking.ParkingWidget;
 
 /**
  * Enactor para quando um novo veículo chegar ao estacionamento.
@@ -34,18 +37,21 @@ public class NewVehicleEnactor extends Enactor {
 		
 		// Quando chega um novo veículo, o acesso dele é liberado se o estacionamento tiver vagas e ele tiver permissão
 		AbstractQueryItem<?, ?> accessQI = new ANDQueryItem(
-				RuleQueryItem.instance(
-						new NonConstantAttributeElement(AttributeNameValue.instance(AccessControlWidget.NEW_VEHICLE, true)),
-						new AttributeComparison(AttributeComparison.Comparison.EQUAL)
-				),
-				RuleQueryItem.instance(
-						new NonConstantAttributeElement(AttributeNameValue.instance(DriverWidget.PERMISSION, true)),
-						new AttributeComparison(AttributeComparison.Comparison.EQUAL)
-				),
-				RuleQueryItem.instance(
-						new NonConstantAttributeElement(AttributeNameValue.instance(AccessControlWidget.VACANCY, true)),
-						new AttributeComparison(AttributeComparison.Comparison.EQUAL)
-				)				
+			RuleQueryItem.instance(
+					new NonConstantAttributeElement(AttributeNameValue.instance(NewVehicleWidget.NEW_VEHICLE,
+							NewVehicleWidget.NEW_VEHICLE_YES)),
+					new AttributeComparison(AttributeComparison.Comparison.EQUAL)
+			),
+			RuleQueryItem.instance(
+					new ConstantAttributeElement(AttributeNameValue.instance(DriverWidget.PERMISSION,
+							DriverWidget.PERMISSION_YES)),
+					new AttributeComparison(AttributeComparison.Comparison.EQUAL)
+			),
+			RuleQueryItem.instance(
+					new NonConstantAttributeElement(AttributeNameValue.instance(ParkingWidget.VACANCY,
+							ParkingWidget.VACANCY_YES)),
+					new AttributeComparison(AttributeComparison.Comparison.EQUAL)
+			)
 		);
 		
 		EnactorReference er = new NewVehicleEnactorReference(
