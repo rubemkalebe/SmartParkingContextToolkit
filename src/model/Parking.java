@@ -1,8 +1,6 @@
 package model;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import enums.TypeEnum;
 import ui.Panel;
 

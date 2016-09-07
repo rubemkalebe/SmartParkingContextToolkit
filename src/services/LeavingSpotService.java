@@ -1,9 +1,5 @@
 package services;
 
-import java.awt.Graphics;
-
-import javax.swing.JPanel;
-
 import context.arch.comm.DataObject;
 import context.arch.service.Service;
 import context.arch.service.helper.FunctionDescription;

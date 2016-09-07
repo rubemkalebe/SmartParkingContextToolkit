@@ -23,7 +23,6 @@ public class Main {
 		janela.setVisible(true);
 		
 		Parking p1 = new Parking("SmartParking", janela, meuPainel );
-
 	}
 
 }

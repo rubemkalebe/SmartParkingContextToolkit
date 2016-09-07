@@ -1,8 +1,5 @@
 package model;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import context.arch.discoverer.query.AbstractQueryItem;
 import context.arch.widget.WidgetXmlParser;
 import enactors.AlarmEnactor;
