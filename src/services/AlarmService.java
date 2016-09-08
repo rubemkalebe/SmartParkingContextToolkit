@@ -29,7 +29,7 @@ public class AlarmService extends Service {
 
 	@Override
 	public DataObject execute(ServiceInput serviceInput) {
-		System.out.println("ALARME!");
+		System.out.println("ALARME! Vaga:" + spot);
 		return new DataObject();
 	}
 

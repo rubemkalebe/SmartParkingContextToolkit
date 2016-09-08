@@ -42,7 +42,8 @@ public class Main {
 			System.out.println("1 - NOVO VEICULO");
 			System.out.println("2 - SOLICITAR ENTRADA NO ESTACIONAMENTO");
 			System.out.println("3 - ESTACIONAR VEICULO");
-			System.out.println("4 - REGISTRAR VAGA");		
+			System.out.println("4 - REGISTRAR VAGA");
+			System.out.println("5 - SAIR DA VAGA");
 			System.out.println("0 - SAIR");
 			
 			scanner = new Scanner(System.in); 		
@@ -116,6 +117,12 @@ public class Main {
 				vehicles.get(v2).linkSpot(p1.spots.get(vaga).spotWidget.ID);
 				p1.linkDriver(vaga, vehicles.get(v2).driverWidget.DRIVER_ID);
 				meuPainel.occupingSpot(vaga, g);
+				break;
+			case 5:
+				//retirar veículo da vaga
+				System.out.println("Entre com o numero da vaga:");
+				int spot = scanner.nextInt();
+				p1.freeSpot(spot);
 				break;
 			}			
 		} while(i > 0);
