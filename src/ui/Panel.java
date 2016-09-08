@@ -13,12 +13,11 @@ public class Panel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Graphics g;
 	private static Scanner scanner;
 	
-	public Panel(Graphics g){
-		this.g = g;
-				
+	public Panel(Graphics graph){
+		super();
+	
 	}
 	
 	public void paintComponent( Graphics g){
@@ -65,7 +64,7 @@ public class Panel extends JPanel {
         
 	}
 	
-	public void paintNumber(int spot){
+	public void paintNumber(int spot, Graphics g){
 		g.setColor( Color.BLACK );
 		if (spot < 7){
 			g.drawString(""+(spot+1), 160+(spot*80), 100);
@@ -75,7 +74,7 @@ public class Panel extends JPanel {
 		}		
 	}
 	
-	public void paintType(int spot){
+	public void paintType(int spot, Graphics g){
 		int i = spot - 1;
 		
 		 if( i == 0 || i ==1){
@@ -88,46 +87,46 @@ public class Panel extends JPanel {
          }				
 	}
 	
-	public void occupingSpot( int spot ){		
+	public void occupingSpot( int spot, Graphics g){		
 	    if (spot < 7){
 	    	g.setColor( Color.RED );	    	
 	    	g.fillRect(100+((spot-1)*80), 81 , 77, 100);
-	    	paintNumber(spot-1);
-	    	paintType(spot);	    	
+	    	paintNumber(spot-1, g);
+	    	paintType(spot, g);	    	
 	    }	    
 	    else{
 	    	g.setColor( Color.RED );
 	    	g.fillRect( 100+((spot-7)*80), 186 , 77, 100);
-	    	paintNumber(spot-1);
+	    	paintNumber(spot-1, g);
 	    }
 	}
 	
-	public void freeingSpot( int spot ){		
+	public void freeingSpot( int spot, Graphics g ){		
 	    if (spot < 7){
 	    	g.setColor( Color.GREEN );
 	    	g.fillRect( 100+((spot-1)*80), 81 , 77, 100);
-	    	paintNumber(spot-1);
-	    	paintType(spot);
+	    	paintNumber(spot-1, g);
+	    	paintType(spot, g);
 	    }	    
 	    else{
 	    	g.setColor( Color.GREEN );
 	    	g.fillRect( 100+((spot-7)*80), 186 , 77, 100);
-	    	paintNumber(spot-1);
+	    	paintNumber(spot-1, g);
 	    }
 	}
 	
 	
-	public void waitingSpot( int spot ){		
+	public void waitingSpot( int spot, Graphics g){		
 	    if (spot < 7){
 	    	g.setColor( Color.BLUE );
 	    	g.fillRect( 100+((spot-1)*80), 81 , 77, 100);
-	    	paintNumber(spot-1);
-	    	paintType(spot);
+	    	paintNumber(spot-1, g);
+	    	paintType(spot, g);
 	    }	    
 	    else{
 	    	g.setColor( Color.BLUE );
 	    	g.fillRect( 100+((spot-7)*80), 186 , 77, 100);
-	    	paintNumber(spot-1);
+	    	paintNumber(spot-1, g);
 	    }
 	}
 	
@@ -139,6 +138,7 @@ public class Panel extends JPanel {
 		janela.add(meuPainel);
 		janela.setSize(600,600);
 		janela.setVisible(true);
+		Graphics g = janela.getGraphics();
 		
 		scanner = new Scanner(System.in); 		
 		int i = scanner.nextInt();
@@ -147,15 +147,15 @@ public class Panel extends JPanel {
 			switch (i){
 				case 1:
 					int j = scanner.nextInt();
-					meuPainel.occupingSpot(j);
+					meuPainel.occupingSpot(j, g);
 					break;
 				case 2:
 					int j1 = scanner.nextInt();
-					meuPainel.waitingSpot(j1);
+					meuPainel.waitingSpot(j1, g);
 					break;
 				case 3:
 					int j2 = scanner.nextInt();
-					meuPainel.freeingSpot(j2);
+					meuPainel.freeingSpot(j2, g);
 					break;	
 			}
 			i = scanner.nextInt();

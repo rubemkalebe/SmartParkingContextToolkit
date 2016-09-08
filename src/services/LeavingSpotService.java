@@ -1,5 +1,7 @@
 package services;
 
+import java.awt.Graphics;
+
 import context.arch.comm.DataObject;
 import context.arch.service.Service;
 import context.arch.service.helper.FunctionDescription;
@@ -12,9 +14,10 @@ public class LeavingSpotService extends Service {
 	
 	public String spot;
 	public Panel panel;
+	public Graphics g;
 	
 	@SuppressWarnings("serial")
-	public LeavingSpotService(final Widget widget, String spot, Panel p ) {
+	public LeavingSpotService(final Widget widget, String spot, Panel p, Graphics g ) {
 		super(widget, "LeavingSpotService", 
 				new FunctionDescriptions() {
 					{ // constructor
@@ -27,6 +30,7 @@ public class LeavingSpotService extends Service {
 				});
 		this.spot = spot;
 		this.panel = p;
+		this.g = g;
 	}
 
 	@Override
@@ -34,7 +38,7 @@ public class LeavingSpotService extends Service {
 		// TODO Auto-generated method stub
 		spot.replace("S", "");		
 		int s = Integer.parseInt(spot);
-		panel.freeingSpot(s);
+		panel.freeingSpot(s, g);
 		//notificar Motorista
 		return new DataObject();
 	}

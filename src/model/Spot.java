@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Graphics;
+
 import context.arch.discoverer.query.AbstractQueryItem;
 import context.arch.widget.WidgetXmlParser;
 import enactors.AlarmEnactor;
@@ -30,7 +32,7 @@ public class Spot {
 	public AlarmService alarmService;
 	public LeavingSpotService leavingSpotService;
 	
-	public Spot(String spot, TypeEnum type, Panel p) {
+	public Spot(String spot, TypeEnum type, Panel p, Graphics g) {
 		this.spot = spot;
 		this.type = type;
 		
@@ -42,7 +44,7 @@ public class Spot {
 		alarmService = new AlarmService(spotWidget, spot);
 		alarmWidget.addService(alarmService);
 		
-		leavingSpotService = new LeavingSpotService(spotWidget, spot, p );
+		leavingSpotService = new LeavingSpotService(spotWidget, spot, p, g);
 		notifyWidget.addService(leavingSpotService);
 		
 		AbstractQueryItem<?, ?>[] inAlarmWidgetQuery = {

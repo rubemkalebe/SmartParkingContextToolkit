@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,6 +19,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+		Graphics g;
 		
 		System.setProperty("java.net.preferIPv4Stack", "true"); // Rubem: no meu só executa setando isso
 		Discoverer.start();
@@ -30,7 +32,8 @@ public class Main {
 		janela.setSize(600,600);
 		janela.setVisible(true);
 		
-		Parking p1 = new Parking("SmartParking", janela, meuPainel );
+		g = janela.getGraphics();
+		Parking p1 = new Parking("SmartParking", meuPainel, janela.getGraphics() );
 		
 		System.out.println("-----MENU-----");
 		System.out.println("1 - NOVO VEICULO");
@@ -89,7 +92,7 @@ public class Main {
 				case 3://Ocupar Vaga
 					System.out.println("Entre uma vaga:");
 					int v3 = scanner.nextInt();
-					meuPainel.waitingSpot(v3);
+					meuPainel.waitingSpot(v3, g);
 					//Mudar sensor
 					//TODO 
 //					p1.spots.get(v3-1).sensorWidget.SENSOR = 
@@ -108,7 +111,7 @@ public class Main {
 					
 					//Setar widget do veículo current_spot na vaga escolhida
 					vehicles.get(v2).driverWidget.CURRENT_SPOT = "" + vaga;
-					meuPainel.occupingSpot(vaga);
+					meuPainel.occupingSpot(vaga, g);
 					break;
 			}
 			

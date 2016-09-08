@@ -1,8 +1,8 @@
 package model;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import enums.TypeEnum;
 import ui.Panel;
 
@@ -24,20 +24,20 @@ public class Parking {
 	public Spot s11;
 	public Spot s12;	
 	
-	public Parking(String parking, JFrame f, Panel p ) {
+	public Parking(String parking, Panel p, Graphics g ) {
 		this.parking = parking;
-		this.s1 = new Spot("S1", TypeEnum.HANDICAPPED, p);
-		this.s2 = new Spot("S2", TypeEnum.HANDICAPPED, p);
-		this.s3 = new Spot("S3", TypeEnum.ELDERLY, p);
-		this.s4 = new Spot("S4", TypeEnum.ELDERLY, p);
-		this.s5 = new Spot("S5", TypeEnum.NORMAL, p);
-		this.s6 = new Spot("S6", TypeEnum.NORMAL, p);
-		this.s7 = new Spot("S7", TypeEnum.NORMAL, p);
-		this.s8 = new Spot("S8", TypeEnum.NORMAL, p);
-		this.s9 = new Spot("S9", TypeEnum.NORMAL, p);
-		this.s10 = new Spot("S10", TypeEnum.NORMAL, p);
-		this.s11 = new Spot("S11", TypeEnum.NORMAL, p);
-		this.s12 = new Spot("S12", TypeEnum.NORMAL, p);
+		this.s1 = new Spot("S1", TypeEnum.HANDICAPPED, p, g);
+		this.s2 = new Spot("S2", TypeEnum.HANDICAPPED, p, g);
+		this.s3 = new Spot("S3", TypeEnum.ELDERLY, p, g);
+		this.s4 = new Spot("S4", TypeEnum.ELDERLY, p, g);
+		this.s5 = new Spot("S5", TypeEnum.NORMAL, p, g);
+		this.s6 = new Spot("S6", TypeEnum.NORMAL, p, g);
+		this.s7 = new Spot("S7", TypeEnum.NORMAL, p, g);
+		this.s8 = new Spot("S8", TypeEnum.NORMAL, p, g);
+		this.s9 = new Spot("S9", TypeEnum.NORMAL, p, g);
+		this.s10 = new Spot("S10", TypeEnum.NORMAL, p, g);
+		this.s11 = new Spot("S11", TypeEnum.NORMAL, p, g);
+		this.s12 = new Spot("S12", TypeEnum.NORMAL, p, g);
 		spots.add(s1);
 		spots.add(s2);
 		spots.add(s3);
