@@ -98,6 +98,7 @@ public class AlarmEnactor extends Enactor {
 		
 		@Override
 		protected Attributes conditionSatisfied(ComponentDescription inWidgetState, Attributes outAtts) {
+			System.out.println("ALARM_ENACTOR");
 			long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
 			WidgetData data = new WidgetData(AlarmWidget.CLASSNAME, timestamp);
 			boolean new_alarm;

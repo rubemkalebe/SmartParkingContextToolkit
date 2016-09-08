@@ -80,6 +80,7 @@ public class LeavingSpotEnactor extends Enactor {
 		
 		@Override
 		protected Attributes conditionSatisfied(ComponentDescription inWidgetState, Attributes outAtts) {
+			System.out.println("LEAVING_ENACTOR");
 			long timestamp = outAtts.getAttributeValue(Widget.TIMESTAMP);
 			WidgetData data = new WidgetData(NotifyWidget.CLASSNAME, timestamp);
 			boolean new_status;

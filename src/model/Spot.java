@@ -47,6 +47,12 @@ public class Spot {
 		leavingSpotService = new LeavingSpotService(spotWidget, spot, p, g);
 		notifyWidget.addService(leavingSpotService);
 		
+		// Inicialização
+		spotWidget.updateData(SpotWidget.DRIVER, "");
+		sensorWidget.updateData(SensorWidget.SENSOR, false);
+		alarmWidget.updateData(AlarmWidget.ALARM, false);
+		notifyWidget.updateData(NotifyWidget.NOTIFY, false);
+		
 		AbstractQueryItem<?, ?>[] inAlarmWidgetQuery = {
 			WidgetXmlParser.createWidgetSubscriptionQuery(sensorWidget),
 			WidgetXmlParser.createWidgetSubscriptionQuery(spotWidget)
@@ -64,12 +70,6 @@ public class Spot {
 			WidgetXmlParser.createWidgetSubscriptionQuery(notifyWidget)
 		};
 		leavingSpotEnactor = new LeavingSpotEnactor(inNotifyWidgetQuery, outNotifyWidgetQuery);
-		
-		// Inicialização
-		spotWidget.updateData(SpotWidget.DRIVER, "");
-		sensorWidget.updateData(SensorWidget.SENSOR, false);
-		alarmWidget.updateData(AlarmWidget.ALARM, false);
-		notifyWidget.updateData(NotifyWidget.NOTIFY, false);
 	}
 	
 }

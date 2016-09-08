@@ -74,15 +74,15 @@ public class Parking {
 		newVehicleWidget = new NewVehicleWidget(parking, "G1");
 		accessControlWidget = new AccessControlWidget(parking, "G1");
 		
-		newVehicleService = new NewVehicleService(parkingWidget);
-		parkingWidget.addService(newVehicleService);
-
-		newVehicleEnactor = null;
-		
 		// Inicialização
 		parkingWidget.updateData(ParkingWidget.VACANCY, true);
 		newVehicleWidget.updateData(NewVehicleWidget.NEW_VEHICLE, false);
 		accessControlWidget.updateData(AccessControlWidget.ACCESS_STATUS, false);
+		
+		newVehicleService = new NewVehicleService(parkingWidget);
+		parkingWidget.addService(newVehicleService);
+		
+		newVehicleEnactor = null;
 	}
 	
 	public void newVehicle(DriverWidget driver) {
@@ -94,14 +94,14 @@ public class Parking {
 		AbstractQueryItem<?, ?>[] outAccessWidgetQuery = {
 			WidgetXmlParser.createWidgetSubscriptionQuery(accessControlWidget)
 		};
-		//newVehicleEnactor = new NewVehicleEnactor(inAccessWidgetQuery, outAccessWidgetQuery);
-		//newVehicleWidget.updateData(NewVehicleWidget.NEW_VEHICLE, true);
+		newVehicleEnactor = new NewVehicleEnactor(inAccessWidgetQuery, outAccessWidgetQuery);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//newVehicleWidget.updateData(NewVehicleWidget.NEW_VEHICLE, true);
 	}
 	
 	public void occupySpot(int i) {
