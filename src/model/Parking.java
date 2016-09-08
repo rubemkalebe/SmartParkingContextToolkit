@@ -3,8 +3,19 @@ package model;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import context.arch.discoverer.query.AbstractQueryItem;
+import context.arch.widget.WidgetXmlParser;
+import enactors.AlarmEnactor;
+import enactors.NewVehicleEnactor;
 import enums.TypeEnum;
+import services.NewVehicleService;
 import ui.Panel;
+import widgets.driver.DriverWidget;
+import widgets.parking.AccessControlWidget;
+import widgets.parking.NewVehicleWidget;
+import widgets.parking.ParkingWidget;
+import widgets.spot.SensorWidget;
+import widgets.spot.SpotWidget;
 
 public class Parking {
 	
@@ -22,7 +33,15 @@ public class Parking {
 	public Spot s9;
 	public Spot s10;
 	public Spot s11;
-	public Spot s12;	
+	public Spot s12;
+	
+	public ParkingWidget parkingWidget;
+	public NewVehicleWidget newVehicleWidget;
+	public AccessControlWidget accessControlWidget;
+	
+	public NewVehicleEnactor newVehicleEnactor;
+	
+	public NewVehicleService newVehicleService;
 	
 	public Parking(String parking, Panel p, Graphics g ) {
 		this.parking = parking;
@@ -50,6 +69,46 @@ public class Parking {
 		spots.add(s10);
 		spots.add(s11);
 		spots.add(s12);
-		// TODO Auto-generated constructor stub
+		
+		parkingWidget = new ParkingWidget(parking);
+		newVehicleWidget = new NewVehicleWidget(parking, "G1");
+		accessControlWidget = new AccessControlWidget(parking, "G1");
+		
+		newVehicleService = new NewVehicleService(parkingWidget);
+		parkingWidget.addService(newVehicleService);
+
+		newVehicleEnactor = null;
+		
+		// Inicialização
+		parkingWidget.updateData(ParkingWidget.VACANCY, true);
+		newVehicleWidget.updateData(NewVehicleWidget.NEW_VEHICLE, false);
+		accessControlWidget.updateData(AccessControlWidget.ACCESS_STATUS, false);
+	}
+	
+	public void newVehicle(DriverWidget driver) {
+		AbstractQueryItem<?, ?>[] inAccessWidgetQuery = {
+			WidgetXmlParser.createWidgetSubscriptionQuery(newVehicleWidget),
+			WidgetXmlParser.createWidgetSubscriptionQuery(parkingWidget),
+			WidgetXmlParser.createWidgetSubscriptionQuery(driver)
+		};
+		AbstractQueryItem<?, ?>[] outAccessWidgetQuery = {
+			WidgetXmlParser.createWidgetSubscriptionQuery(accessControlWidget)
+		};
+		//newVehicleEnactor = new NewVehicleEnactor(inAccessWidgetQuery, outAccessWidgetQuery);
+		//newVehicleWidget.updateData(NewVehicleWidget.NEW_VEHICLE, true);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void occupySpot(int i) {
+		spots.get(i).sensorWidget.updateData(SensorWidget.SENSOR, true);
+	}
+	
+	public void linkDriver(int i, String driver) {
+		spots.get(i).spotWidget.updateData(SpotWidget.DRIVER, driver);
 	}
 }

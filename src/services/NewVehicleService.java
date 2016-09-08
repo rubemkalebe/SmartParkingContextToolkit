@@ -26,7 +26,7 @@ public class NewVehicleService extends Service {
 
 	@Override
 	public DataObject execute(ServiceInput serviceInput) {
-		System.out.println("Caro Liberado!");
+		System.out.println("Carro Liberado!");
 		return new DataObject();
 	}
 

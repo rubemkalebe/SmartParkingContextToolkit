@@ -22,7 +22,7 @@ public class NewVehicleWidget extends Widget {
 	private String gate;
 	
 	// Quando chega um novo veículo (0/1)
-	public static String NEW_VEHICLE = "new_vehicle";
+	public static final String NEW_VEHICLE = "new_vehicle";
 	
 	// Constantes para novo veiculo
 	public static final Boolean NEW_VEHICLE_YES = true;

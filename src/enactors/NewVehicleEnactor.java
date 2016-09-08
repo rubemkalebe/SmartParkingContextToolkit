@@ -84,6 +84,7 @@ public class NewVehicleEnactor extends Enactor {
 		
 		public NewVehicleEnactorReference(AbstractQueryItem<?,?> conditionQuery, Boolean outcomeValue) {
 			super(NewVehicleEnactor.this, conditionQuery, outcomeValue.toString());
+			System.out.println("OUT: " + outcomeValue.toString());
 		}
 		
 		@Override
@@ -93,8 +94,10 @@ public class NewVehicleEnactor extends Enactor {
 			boolean access_status;
 			if(outcomeValue.equals(String.valueOf(AccessControlWidget.ACCESS_OK))) {
 				access_status = true;
+				System.out.println("--TRUE--");
 			} else {
 				access_status = false;
+				System.out.println("--FALSE--");
 			}
 			
 			data.setAttributeValue(AccessControlWidget.ACCESS_STATUS, access_status);

@@ -103,8 +103,10 @@ public class AlarmEnactor extends Enactor {
 			boolean new_alarm;
 			if(outcomeValue.equals(String.valueOf(AlarmWidget.ALARM_ON))) {
 				new_alarm = true;
+				System.out.println("TRUE");
 			} else {
 				new_alarm = false;
+				System.out.println("FALSE");
 			}
 			
 			data.setAttributeValue(AlarmWidget.ALARM, new_alarm);
