@@ -126,7 +126,7 @@ public class Main {
 				// retirar veículo da vaga
 				System.out.println("Entre com o numero da vaga:");
 				int spot = scanner.nextInt();
-				p1.freeSpot(spot);
+				p1.freeSpot(spot-1);
 				break;
 			}
 		} while (i > 0);
