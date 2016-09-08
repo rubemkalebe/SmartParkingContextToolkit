@@ -106,9 +106,9 @@ public class Main {
 				p1.occupySpot(v3);
 				break;
 			case 4: // Registrar vaga
-
+				
 				// Imprimir todos os veículos
-				for (int j = 0; i < vehicles.size(); i++) {
+				for (int j = 0; j < vehicles.size(); j++) {
 					System.out.println("ID :" + j + "  " + vehicles.get(j).toString());
 				}
 
