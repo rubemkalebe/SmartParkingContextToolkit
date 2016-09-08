@@ -2,30 +2,26 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.peer.MenuPeer;
 import java.util.Scanner;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Panel extends JPanel {	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Graphics g;
+	private static Scanner scanner;
 	
 	public Panel(Graphics g){
 		this.g = g;
-		
+				
 	}
 	
-	public void paintComponent( ){
+	public void paintComponent( Graphics g){
 	    super.paintComponent( g );
 	    
 	    //Background color
@@ -144,10 +140,10 @@ public class Panel extends JPanel {
 		janela.setSize(600,600);
 		janela.setVisible(true);
 		
-		//lÊ operação
-		Scanner scanner = new Scanner(System.in); 		
+		scanner = new Scanner(System.in); 		
 		int i = scanner.nextInt();
 		while(i > 0){
+			
 			switch (i){
 				case 1:
 					int j = scanner.nextInt();

@@ -29,8 +29,8 @@ public class AlarmService extends Service {
 
 	@Override
 	public DataObject execute(ServiceInput serviceInput) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("ALARME!");
+		return new DataObject();
 	}
 
 }

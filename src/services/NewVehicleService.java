@@ -26,8 +26,8 @@ public class NewVehicleService extends Service {
 
 	@Override
 	public DataObject execute(ServiceInput serviceInput) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Caro Liberado!");
+		return new DataObject();
 	}
 
 }

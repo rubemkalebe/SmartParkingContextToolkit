@@ -17,7 +17,7 @@ public class SensorWidget extends Widget {
 	private String spot;
 	
 	// Sensor para detectar carro (0/1)
-	public static final String SENSOR = "sensor";
+	public static String SENSOR = "sensor";
 	
 	// Contantes para o sensor
 	public static final Boolean OCCUPIED = true;

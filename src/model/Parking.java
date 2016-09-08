@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import enums.TypeEnum;
 import ui.Panel;
@@ -7,6 +9,7 @@ import ui.Panel;
 public class Parking {
 	
 	public String parking;
+	public ArrayList<Spot> spots= new ArrayList<>(); 
 	
 	public Spot s1;
 	public Spot s2;
@@ -35,6 +38,18 @@ public class Parking {
 		this.s10 = new Spot("S10", TypeEnum.NORMAL, p);
 		this.s11 = new Spot("S11", TypeEnum.NORMAL, p);
 		this.s12 = new Spot("S12", TypeEnum.NORMAL, p);
+		spots.add(s1);
+		spots.add(s2);
+		spots.add(s3);
+		spots.add(s4);
+		spots.add(s5);
+		spots.add(s6);
+		spots.add(s7);
+		spots.add(s8);
+		spots.add(s9);
+		spots.add(s10);
+		spots.add(s11);
+		spots.add(s12);
 		// TODO Auto-generated constructor stub
 	}
 }

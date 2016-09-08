@@ -35,7 +35,8 @@ public class LeavingSpotService extends Service {
 		spot.replace("S", "");		
 		int s = Integer.parseInt(spot);
 		panel.freeingSpot(s);
-		return null;
+		//notificar Motorista
+		return new DataObject();
 	}
 
 }
