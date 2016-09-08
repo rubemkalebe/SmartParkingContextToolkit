@@ -111,4 +111,10 @@ public class Parking {
 	public void linkDriver(int i, String driver) {
 		spots.get(i).spotWidget.updateData(SpotWidget.DRIVER, driver);
 	}
+	
+	public void freeSpot(int i) {
+		spots.get(i).sensorWidget.updateData(SensorWidget.SENSOR, false);
+	}
+	
+	
 }
