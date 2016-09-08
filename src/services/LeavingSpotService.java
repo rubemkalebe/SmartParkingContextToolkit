@@ -36,8 +36,8 @@ public class LeavingSpotService extends Service {
 	@Override
 	public DataObject execute(ServiceInput serviceInput) {
 		// TODO Auto-generated method stub
-		spot.replace("S", "");		
-		int s = Integer.parseInt(spot);
+		String a = spot.replace("S", "");
+		int s = Integer.parseInt(a);
 		panel.freeingSpot(s, g);
 		//notificar Motorista
 		return new DataObject();
